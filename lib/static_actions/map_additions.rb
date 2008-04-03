@@ -9,6 +9,19 @@ module StaticActions
       send("#{controller}_#{action}", path, :controller => controller.to_s, :action => action.to_s)
       send("#{controller}_#{action}_with_format", "#{path}.:format", :controller => controller.to_s, :action => action.to_s)
     end
+    
+    def root_static_actions(controller, actions)
+      actions.each { |action| root_static_action(controller, action) }
+    end
+    
+    def root_static_action(controller, action)
+      if action.to_s == 'index'
+        root :controller => controller.to_s
+      else
+        send("#{action}", action.to_s, :controller => controller.to_s, :action => action.to_s)
+        send("#{action}_with_format", "#{action.to_s}.:format", :controller => controller.to_s, :action => action.to_s)
+      end
+    end
   end
 end
 

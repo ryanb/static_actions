@@ -35,4 +35,22 @@ describe StaticActions::MapAdditions do
     @map.expects(:foo_bar).with('foo/bar', :controller => 'foo', :action => 'bar')
     @map.static_action :foo, :bar
   end
+  
+  it "should be able to make a root action which doesn't include controller name" do
+    @map.expects(:bar).with('bar', :controller => 'foo', :action => 'bar')
+    @map.expects(:bar_with_format).with('bar.:format', :controller => 'foo', :action => 'bar')
+    @map.root_static_action :foo, :bar
+  end
+  
+  it "should use root named route for index root action" do
+    @map.expects(:root).with(:controller => 'foo')
+    @map.root_static_action :foo, :index
+  end
+  
+  it "should be able to specify multiple root actions" do
+    @map.expects(:root).with(:controller => 'foo')
+    @map.expects(:bar).with('bar', :controller => 'foo', :action => 'bar')
+    @map.expects(:bar_with_format).with('bar.:format', :controller => 'foo', :action => 'bar')
+    @map.root_static_actions :foo, [:index, :bar]
+  end
 end
