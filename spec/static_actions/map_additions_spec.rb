@@ -30,4 +30,9 @@ describe StaticActions::MapAdditions do
     @map.expects(:foo_bar_with_format).with('foo/bar.:format', :controller => 'foo', :action => 'bar')
     @map.static_actions :foo, [:index, :bar]
   end
+  
+  it "should have a single static_action method which doesn't require an array" do
+    @map.expects(:foo_bar).with('foo/bar', :controller => 'foo', :action => 'bar')
+    @map.static_action :foo, :bar
+  end
 end
