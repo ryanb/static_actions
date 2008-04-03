@@ -24,4 +24,10 @@ describe StaticActions::MapAdditions do
     @map.expects(:foo_index).with('foo', :controller => 'foo', :action => 'index')
     @map.static_actions :foo, [:index]
   end
+  
+  it "should include format path for each action" do
+    @map.expects(:foo_index_with_format).with('foo.:format', :controller => 'foo', :action => 'index')
+    @map.expects(:foo_bar_with_format).with('foo/bar.:format', :controller => 'foo', :action => 'bar')
+    @map.static_actions :foo, [:index, :bar]
+  end
 end

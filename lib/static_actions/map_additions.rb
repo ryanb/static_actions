@@ -4,8 +4,10 @@ module StaticActions
       actions.each do |action|
         if action.to_s == 'index'
           send("#{controller}_#{action}", "#{controller}", :controller => controller.to_s, :action => action.to_s)
+          send("#{controller}_#{action}_with_format", "#{controller}.:format", :controller => controller.to_s, :action => action.to_s)
         else
           send("#{controller}_#{action}", "#{controller}/#{action}", :controller => controller.to_s, :action => action.to_s)
+          send("#{controller}_#{action}_with_format", "#{controller}/#{action}.:format", :controller => controller.to_s, :action => action.to_s)
         end
       end
     end
