@@ -1,7 +1,50 @@
 Static Actions
 ==============
 
-TODO
+This plugin will allow you to quickly create non-RESTful named routes using "map.static_actions". This way you can truly get rid of that generic ":controller/:action" route.
+
+
+Installation
+------------
+
+If you are running edge rails you can install the plugin straight from the repository:
+
+	script/plugin install git://github.com/ryanb/static_actions.git
+
+Otherwise you can install it with this command:
+
+	git clone --depth=1 git://github.com/ryanb/static_actions.git vendor/plugins/static_actions
+
+
+Instructions
+------------
+
+Let's say you have a controller called "about" which has "index", "privacy", and "license" actions. This is a non-RESTful controller and usually requires the generic ":controller/:action" route. Instead we will use this plugin's static_actions method to generate named routes!
+
+	map.static_actions :about, [:index, :privacy, :license]
+
+That is the same as doing this.
+
+	map.about_index 'about', :controller => 'about', :action => 'index'
+	map.about_privacy 'about/privacy', :controller => 'about', :action => 'privacy'
+	map.about_license 'about/license', :controller => 'about', :action => 'license'
+
+It also includes a with_format named route for each action.
+
+	map.about_index_with_format 'about.:format', :controller => 'about', :action => 'index'
+	map.about_privacy_with_format 'about/privacy.:format', :controller => 'about', :action => 'privacy'
+	map.about_license_with_format 'about/license.:format', :controller => 'about', :action => 'license'
+
+Now you have 6 named you can use in your view.
+
+	<%= link_to "Privacy", about_privacy_path %>
+	<%= link_to "License PDF", about_license_with_format_path(:pdf) %>
+
+If you just have a single action, you can use the singular static_action method which doesn't take an array.
+	
+	map.static_action :about, :privacy
+
+Happy routing.
 
 ---
 
