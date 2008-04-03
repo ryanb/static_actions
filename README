@@ -44,6 +44,19 @@ If you just have a single action, you can use the singular static_action method 
 	
 	map.static_action :about, :privacy
 
+
+If you don't want the controller name to be in the named route or path, you can prefix the method with "root_".
+
+	map.root_static_actions :about, [:index, :privacy, :license]
+	
+This will generate the following routes.
+	
+	map.root :controller => 'about'
+	map.privacy 'privacy', :controller => 'about', :action => 'privacy'
+	map.license 'license', :controller => 'about', :action => 'license'
+	map.privacy_with_format 'privacy.:format', :controller => 'about', :action => 'privacy'
+	map.license_with_format 'license.:format', :controller => 'about', :action => 'license'
+
 Happy routing.
 
 ---
