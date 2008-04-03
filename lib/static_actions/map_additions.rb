@@ -5,13 +5,9 @@ module StaticActions
     end
     
     def static_action(controller, action)
-      if action.to_s == 'index'
-        send("#{controller}_#{action}", "#{controller}", :controller => controller.to_s, :action => action.to_s)
-        send("#{controller}_#{action}_with_format", "#{controller}.:format", :controller => controller.to_s, :action => action.to_s)
-      else
-        send("#{controller}_#{action}", "#{controller}/#{action}", :controller => controller.to_s, :action => action.to_s)
-        send("#{controller}_#{action}_with_format", "#{controller}/#{action}.:format", :controller => controller.to_s, :action => action.to_s)
-      end
+      path = (action.to_s == 'index' ? controller.to_s : "#{controller}/#{action}")
+      send("#{controller}_#{action}", path, :controller => controller.to_s, :action => action.to_s)
+      send("#{controller}_#{action}_with_format", "#{path}.:format", :controller => controller.to_s, :action => action.to_s)
     end
   end
 end
