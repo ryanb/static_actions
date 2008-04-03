@@ -35,7 +35,7 @@ It also includes a with_format named route for each action.
 	map.about_privacy_with_format 'about/privacy.:format', :controller => 'about', :action => 'privacy'
 	map.about_license_with_format 'about/license.:format', :controller => 'about', :action => 'license'
 
-Now you have 6 named you can use in your view.
+Now you have 6 named routes you can use in your view.
 
 	<%= link_to "Privacy", about_privacy_path %>
 	<%= link_to "License PDF", about_license_with_format_path(:pdf) %>
