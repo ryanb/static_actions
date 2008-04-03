@@ -13,4 +13,15 @@ describe StaticActions::MapAdditions do
     @map.expects(:foo_bar).with('foo/bar', :controller => 'foo', :action => 'bar')
     @map.static_actions :foo, [:bar]
   end
+  
+  it "should be able to pass multiple actions" do
+    @map.expects(:foo_bar).with('foo/bar', :controller => 'foo', :action => 'bar')
+    @map.expects(:foo_blah).with('foo/blah', :controller => 'foo', :action => 'blah')
+    @map.static_actions :foo, [:bar, :blah]
+  end
+  
+  it "should not display index action in path" do
+    @map.expects(:foo_index).with('foo', :controller => 'foo', :action => 'index')
+    @map.static_actions :foo, [:index]
+  end
 end
